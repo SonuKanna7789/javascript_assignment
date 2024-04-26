@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Booking Form</title>
+    <style>
+    
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            background-image: url('images/Dessert.jpg'); /* Update with your actual image URL */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #377;
+        }
+
+        form {
+            width: 90%; /* Responsive width */
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 10PX;
+        }
+
+        input[type="submit"],
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #b { /* Specific style for the 'Add' button */
+            background-color: #424548; /* Blue color for the 'Add' button */
+        }
+
+        #b:hover {
+            background-color: #bbc0c5; /* Darker blue when hovered */
+        }
+
+        table {
+            width: 90%; /* Responsive width */
+            max-width: 800px;
+            border-collapse: collapse;
+            margin: 20px auto; /* Center table horizontally */
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #header, #footer {
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            }
+
+        /* Placeholder images */
+        #placeholder1,
+        #placeholder2 {
+            display: block;
+            margin: 20px auto;
+            width: 200px;
+            height: 150px;
+            background-color: #ccc;
+            border-radius: 8px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("header.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.querySelector("#header").innerHTML = data;
+                });
+
+            fetch("footer.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.querySelector("#footer").innerHTML = data;
+                });
+        });
+
+        function addToTable() {
+            // Get form values
+            var firstName = document.getElementById("firstName").value;
+            var lastName = document.getElementById("lastName").value;
+            var email = document.getElementById("email").value;
+            var destination = document.getElementById("destination").value;
+            var startDate = document.getElementById("startDate").value;
+            var endDate = document.getElementById("endDate").value;
+            var budget = document.getElementById("budget").value;
+            var numPeople = document.getElementById("numPeople").value;
+
+            if (firstName === "" || lastName === "" || email === "" || destination === "" || startDate === "" || endDate === "" || budget === "" || numPeople === "") {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            var table = document.querySelector(".t1");
+            var newRow = table.insertRow(-1);
+
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            var cell5 = newRow.insertCell(4);
+            var cell6 = newRow.insertCell(5);
+            var cell7 = newRow.insertCell(6);
+            var cell8 = newRow.insertCell(7);
+            var cell9 = newRow.insertCell(8);
+
+            cell1.innerHTML = firstName;
+            cell2.innerHTML = lastName;
+            cell3.innerHTML = email;
+            cell4.innerHTML = destination;
+            cell5.innerHTML = startDate;
+            cell6.innerHTML = endDate;
+            cell7.innerHTML = budget;
+            cell8.innerHTML = numPeople;
+
+            var deleteButton = document.createElement("button");
+            deleteButton.innerHTML = "Delete";
+            deleteButton.style.backgroundColor = "red";
+            deleteButton.onclick = function () {
+                var row = this.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+                updateSubmitButton(); // Update the submit button's disabled state
+            };
+            cell9.appendChild(deleteButton);
+
+            // Clear form fields after adding to the table
+            document.getElementById("bookingForm").reset();
+
+            updateSubmitButton(); // Enable the submit button when a row is added
+        }
+
+        function updateSubmitButton() {
+            var table = document.querySelector(".t1");
+            var submitButton = document.getElementById("submitBtn");
+            // If the table has rows, enable the submit button
+            submitButton.disabled = table.rows.length < 2; // The first row is the table header
+        }
+
+        function redirectToNewPage(event) {
+            var submitButton = document.getElementById("submitBtn");
+            if (submitButton.disabled) {
+                event.preventDefault(); // Prevent submission if no rows
+                alert("Please add at least one row to the table before submitting.");
+            }
+        }
+
+        function calculateEndDate() {
+            const startDateInput = document.getElementById("startDate");
+            const durationInput = document.getElementById("duration");
+            const endDateInput = document.getElementById("endDate");
+
+            const startDate = new Date(startDateInput.value);
+            const duration = parseInt(durationInput.value, 10);
+
+            if (!isNaN(startDate.getTime()) && !isNaN(duration)) {
+                const endDate = new Date(startDate.getTime() + duration * 24 * 60 * 60 * 1000);
+                endDateInput.value = endDate.toISOString().substr(0, 10); // Format as YYYY-MM-DD
+            } else {
+                endDateInput.value = ""; // Clear the end date if inputs are invalid
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="header"></div>
+    <!-- Main Content -->
+    <div>
+        <form id="bookingForm" onsubmit="redirectToNewPage(event)">
+            <h1>Travel Booking Form</h1>
+
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required>
+    
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required>
+    
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+    
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" required>
+    
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" onchange="calculateEndDate()" required>
+    
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" required>
+    
+            <label for="budget">Budget for Itinerary:</label>
+            <input type="number" id="budget" name="budget" min="0" step="100" required>
+    
+            <label for="numPeople">Number of People:</label>
+            <input type="number" id="numPeople" name="numPeople" min="1" required>
+    
+            <label for="specialRequests">Special Requests:</label><br>
+            <textarea id="specialRequests" name="specialRequests" rows="4"></textarea>
+    
+            <button type="button" onclick="addToTable()" id="b" class="b">ADD</button>
+           
+        </form>
+    
+        <table border="2px" class="t1">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Destination</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Budget</th>
+                    <th>Number of People</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- The rows are added here dynamically -->
+            </tbody>
+        </table>
+        <form>
+            <input type="submit" value="Submit" id="submitBtn" disabled>
+        </form>
+    </div>
+    <div id="footer"></div>
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Our Team</title>
+    <script>
+        // Function to load header and footer
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("header.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.querySelector("#header").innerHTML = data;
+                });
+
+            fetch("footer.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.querySelector("#footer").innerHTML = data;
+                });
+        });
+    </script>
+    <style>
+        body, html {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            background-image: url('images/Dessert.jpg'); /* Update with your image path */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+        }
+
+        .content {
+            padding-top: 100px; /* Padding to avoid header overlap */
+            padding-bottom: 100x; /* Padding to avoid footer overlap */
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8); /* Slightly transparent for readability */
+        }
+
+        table {
+            width: 90%; /* Adjust width to fit within the content area */
+            border-collapse: collapse; /* Avoid double borders */
+            background-color: white; 
+            text-align: center;/* Ensure table has white background */
+            margin: 20px auto; /* Center the table */
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px; /* Increased padding for readability */
+            text-align: left; /* Align text to the left */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Set header background color */
+        }
+
+        #header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            position: relative;
+            position: fixed; /* Fixed at the top */
+            width: 100%;
+            z-index: 1000; /* Keep header on top */
+        }
+
+        #footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            position: fixed; /* Fixed at the bottom */
+            width: 100%;
+            bottom: 0;
+            z-index: 1000; /* Keep footer on top */
+        }
+    </style>
+</head>
+<body>
+    <div id="header">Header Content</div> <!-- Placeholder for header content -->
+
+    <main class="content">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Days of Travel</th>
+                    <th>Season</th>
+                    <th>Budget</th>
+                    <th>Mode of Transport</th>
+                    <th>Group or Individual</th>
+                    <th>Itinerary PDF</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Paris, France</td>
+                    <td>5</td>
+                    <td>Spring</td>
+                    <td>$2000</td>
+                    <td>Train</td>
+                    <td>Individual</td>
+                    <td><button><a href="pdf/5-day_Paris.pdf" target="_blank">Download</a></button></td>
+                </tr>
+                <tr>
+                    <td>London, UK</td>
+                    <td>7</td>
+                    <td>Summer</td>
+                    <td>$2500</td>
+                    <td>Flight</td>
+                    <td>Group</td>
+                    <td><button><a href="pdf/London-UK-tour.pdf" target="_blank">Download</a></button></td>
+                </tr>
+                <tr>
+                    <td>Tokyo, Japan</td>
+                    <td>10</td>
+                    <td>Fall</td>
+                    <td>$3000</td>
+                    <td>Subway</td>
+                    <td>Individual</td>
+                    <td><button><a href="pdf/Tokyo.pdf" target="_blank">Download</a></button></td>
+                </tr>
+                <tr>
+                    <td>Miami, USA</td>
+                    <td>5</td>
+                    <td>Winter</td>
+                    <td>$1500</td>
+                    <td>Bus</td>
+                    <td>Group</td>
+                    <td><button><a href="pdf/Miami.pdf" target="_blank">Download</a></button></td>
+                </tr>
+                <tr>
+                    <td>Sydney, Australia</td>
+                    <td>8</td>
+                    <td>Spring</td>
+                    <td>$2800</td>
+                    <td>Ferry</td>
+                    <td>Individual</td>
+                    <td><button><a href="pdf/sydney.pdf" target="_blank">Download</a></button></td>
+                </tr>
+                <tr>
+                    <td>Rome, Italy</td>
+                    <td>11</td>
+                    <td>Summer</td>
+                    <td>$3200</td>
+                    <td>Train</td>
+                    <td>Group</td>
+                    <td><button><a href="pdf/Italy.pdf" target="_blank">Download</a></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <div id="footer">Footer Content</div> <!-- Placeholder for footer content -->
+</body>
+</html>
